@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:46945",
-      "sslPort": 44310
+      "applicationUrl": "http://kasperca.dk",
+      "sslPort": 3600
     }
   },
   "profiles": {

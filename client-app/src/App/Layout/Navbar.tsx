@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useStore } from "../stores/store";
 
-interface Props{
-    openForm:()=>void;
-}
 
-export default function NavBar({openForm}:Props){
 
+export default function NavBar(){
+ const {activityStore} = useStore();
     return(
         <nav>
             <div className="img-con">
@@ -15,7 +14,9 @@ export default function NavBar({openForm}:Props){
             <div className="nav-elements">
                 <h2>Reactivites</h2>
                 <h2>Activities</h2>
-                <button onClick={openForm}>Create Activity</button>
+                <button onClick={()=>{
+                    activityStore.openForm();
+                }}>Create Activity</button>
             </div>
 
         </nav>

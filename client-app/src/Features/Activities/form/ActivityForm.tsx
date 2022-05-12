@@ -1,14 +1,15 @@
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, useState } from "react";
+import { useStore } from "../../../App/stores/store";
 import { Activity } from "../../../Models/Activity";
 
-interface Props{
-    activity:Activity | undefined;
-    closeForm:()=>void;
-    createOrEdit:(activity:Activity)=>void;
- 
-}
-export default function ActivityForm({activity: selectedActivity, closeForm, createOrEdit}:Props){
+
+export default observer(function ActivityForm(){
     
+
+    const {activityStore} = useStore();
+    const {selectedActivity, closeForm, createActivity,updateActivity, loading} = activityStore;
+
     const initialState = selectedActivity ?? {
         id:'',
         title:'',
@@ -19,9 +20,8 @@ export default function ActivityForm({activity: selectedActivity, closeForm, cre
         venue:'',
     }
     const[activity, setActivity] = useState(initialState);
-
     function handleSubmit(){
-        createOrEdit(activity);
+        activity.id ? updateActivity(activity) : createActivity(activity);
     }
 
     function handleInputChange(e:ChangeEvent<HTMLInputElement>){
@@ -38,11 +38,11 @@ export default function ActivityForm({activity: selectedActivity, closeForm, cre
                 <input type="text" placeholder="category" value={activity.category} onChange={handleInputChange} name="category" id="" />
                 <input type="text" placeholder="city" value={activity.city} onChange={handleInputChange} name="city" id=""/>
                 <input type="text" placeholder="venue" value={activity.venue} onChange={handleInputChange} name="venue" id="" />
-                <input type="text" placeholder="date" value={activity.date} onChange={handleInputChange} name="date" id="" />
-                <button className="submit">Submit</button>
+                <input type="date" placeholder="date" value={activity.date} onChange={handleInputChange} name="date" id="" />
+                <button  className="submit">Submit</button>
                 <button onClick={closeForm} >cancel</button>
             </form>
         </div>
     )
 
-}
+})
